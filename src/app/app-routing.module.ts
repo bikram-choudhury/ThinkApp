@@ -1,15 +1,20 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { WrapperComponent } from './wrapper/wrapper.component';
+import { QuestionMasterComponent } from './question-master/question-master.component';
 
 const routes: Routes = [{
   path: '',
-  component: DashboardComponent,
-}];
+  component: DashboardComponent
+}, {
+  path: 'questions',
+  component: QuestionMasterComponent
+}]
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [ RouterModule.forRoot(routes) ],
+  exports: [ RouterModule ]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+
+}

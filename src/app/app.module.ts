@@ -9,6 +9,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { ContainerComponent } from './container/container.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { QuestionMasterComponent } from './question-master/question-master.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { FooterComponent } from './footer/footer.component';
     SidebarComponent,
     ContainerComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    QuestionMasterComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -8,8 +8,55 @@
             <h4 class="card-title">Edit Profile</h4>
             <p class="card-category">Complete your profile</p>
           </div>
+          {{questionModel | json}}
           <div class="card-body">
-            <!-- Create your template here -->
+            <div class="col-md-12">
+              <div class="row">
+                <div class="dropdown">
+                  <button class="dropdown-toggle btn btn-primary" data-toggle="dropdown">
+                    {{selectedTopic | titlecase}}
+                    <b class="caret"></b>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li *ngFor="let topic of topicList;">
+                      <a href="javascript:void(0)" (click)="selectTopic(topic)">{{topic}}</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Questions</label>
+                    <input type="text" class="form-control" [(ngModel)]="questionModel.topicName">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-check form-check-radio form-check-inline">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="mulitple-choice" [(ngModel)]="questionType"> Multiple Choice
+                      <span class="circle">
+                        <span class="check"></span>
+                      </span>
+                    </label>
+                  </div>
+                  <div class="form-check form-check-radio form-check-inline">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="subjective" [(ngModel)]="questionType"> Subjective
+                      <span class="circle">
+                        <span class="check"></span>
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="row" *ngIf="questionType">
+                <div *ngIf="questionType == 'mulitple-choice'; then multipleChoiceTpl else subjectiveTpl;">
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -34,3 +81,46 @@
     </div>
   </div>
 </div>
+
+<ng-template #multipleChoiceTpl>
+  <div class="col-md-12">
+    <div class="table-responsive">
+      <table class="table table-no-border">
+        <thead class=" text-primary">
+          <tr>
+            <th class="text-center">#</th>
+            <th>Choice</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let i of choiceLength; let count = index;">
+            <td class="text-center">
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="checkbox" value="">
+                  <span class="form-check-sign">
+                    <span class="check"></span>
+                  </span>
+                </label>
+              </div>
+            </td>
+            <td>
+              <div class="form-group bmd-form-group">
+                <label class="bmd-label-floating">Option {{count + 1}}</label>
+                <input type="text" class="form-control">
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ng-template>
+<ng-template #subjectiveTpl>
+  <div class="col-md-12">
+    <div class="form-group bmd-form-group">
+      <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
+      <textarea class="form-control" rows="5"></textarea>
+    </div>
+  </div>
+</ng-template>

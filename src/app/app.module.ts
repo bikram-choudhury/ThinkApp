@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,10 +12,13 @@ import { ContainerComponent } from './container/container.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { QuestionMasterComponent } from './question-master/question-master.component';
+import { TopicMasterComponent } from './topic-master/topic-master.component';
 
 @NgModule({
   imports: [
     BrowserModule,
+    FormsModule,
+    HttpClientModule,
     AppRoutingModule
   ],
   declarations: [
@@ -24,7 +29,8 @@ import { QuestionMasterComponent } from './question-master/question-master.compo
     ContainerComponent,
     HeaderComponent,
     FooterComponent,
-    QuestionMasterComponent
+    QuestionMasterComponent,
+    TopicMasterComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

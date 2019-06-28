@@ -10,22 +10,22 @@
   </div>
   <div class="sidebar-wrapper">
     <ul class="nav">
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="/">
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/dashboard']">
           <i class="material-icons">dashboard</i>
           <p>Dashboard</p>
         </a>
       </li>
-      <li class="nav-item ">
-        <a class="nav-link" routerLink="/questions">
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/questions']">
           <i class="material-icons">person</i>
           <p>Question Master</p>
         </a>
       </li>
-      <li class="nav-item ">
-        <a class="nav-link" href="./tables.html">
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/topics']">
           <i class="material-icons">content_paste</i>
-          <p>Table List</p>
+          <p>Topic Master</p>
         </a>
       </li>
       <li class="nav-item ">
@@ -56,12 +56,6 @@
         <a class="nav-link" href="./rtl.html">
           <i class="material-icons">language</i>
           <p>RTL Support</p>
-        </a>
-      </li>
-      <li class="nav-item active-pro ">
-        <a class="nav-link" href="./upgrade.html">
-          <i class="material-icons">unarchive</i>
-          <p>Upgrade to PRO</p>
         </a>
       </li>
     </ul>

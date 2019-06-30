@@ -7,23 +7,37 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QuestionMasterComponent implements OnInit {
   questionType: string;
-  choiceLength: any[] = new Array(4);
   topicList: string[] = ['Angular', 'React', 'Node', 'Javascript', 'Cricket', 'Footballs']
   selectedTopic: string = 'Topic';
-  questionModel: {[key: string]: string} = {
-    topicName: '',
+  optionConfigs: any = [];
+  questionModel: {[key: string]: any} = {
+    topicName: 'Topic',
     qType: '',
-    question: ''
+    question: '',
+    options: this.optionConfigs,
+    subjectiveAnswer: ''
   };
   constructor() { }
 
   ngOnInit() {
+    this.createOptionHolder();
   }
   selectTopic(topic: string) {
-    this.selectedTopic = topic.toLowerCase();
+    this.questionModel.topicName = topic.toLowerCase();
   }
-  submit() {
-    console.log(this.questionModel);
+  createOptionHolder() {
+    for(let i=0; i<4; i++) {
+      this.optionConfigs.push({value: '', isCorrect: false});
+    } 
+  }
+  createQuestion() {
+    const question = {...this.questionModel};
+    if(question.qType == 'subjective'){
+      delete question.options;
+    } else if(question.qType == 'mulitple-choice') {
+      delete question.subjectiveAnswer;
+    }
+    console.log(question);
   }
 
 }

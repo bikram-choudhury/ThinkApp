@@ -5,8 +5,9 @@
       <div class="col-md-8">
         <div class="card">
           <div class="card-header card-header-primary">
-            <h4 class="card-title">Edit Profile</h4>
-            <p class="card-category">Complete your profile</p>
+            <button class="btn btn-white pull-right" (click)="createQuestion()" >Create</button>
+            <h4 class="card-title">Create Question</h4>
+            <!-- <p class="card-category">Complete your profile</p> -->
           </div>
           {{questionModel | json}}
           <div class="card-body">
@@ -14,7 +15,7 @@
               <div class="row">
                 <div class="dropdown">
                   <button class="dropdown-toggle btn btn-primary" data-toggle="dropdown">
-                    {{selectedTopic | titlecase}}
+                    {{questionModel.topicName | titlecase}}
                     <b class="caret"></b>
                   </button>
                   <ul class="dropdown-menu">
@@ -28,7 +29,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label class="bmd-label-floating">Questions</label>
-                    <input type="text" class="form-control" [(ngModel)]="questionModel.topicName">
+                    <input type="text" class="form-control" [(ngModel)]="questionModel.question">
                   </div>
                 </div>
               </div>
@@ -36,7 +37,8 @@
                 <div class="col-md-12">
                   <div class="form-check form-check-radio form-check-inline">
                     <label class="form-check-label">
-                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="mulitple-choice" [(ngModel)]="questionType"> Multiple Choice
+                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                        value="mulitple-choice" [(ngModel)]="questionModel.qType"> Multiple Choice
                       <span class="circle">
                         <span class="check"></span>
                       </span>
@@ -44,7 +46,8 @@
                   </div>
                   <div class="form-check form-check-radio form-check-inline">
                     <label class="form-check-label">
-                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="subjective" [(ngModel)]="questionType"> Subjective
+                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                        value="subjective" [(ngModel)]="questionModel.qType"> Subjective
                       <span class="circle">
                         <span class="check"></span>
                       </span>
@@ -52,8 +55,8 @@
                   </div>
                 </div>
               </div>
-              <div class="row" *ngIf="questionType">
-                <div *ngIf="questionType == 'mulitple-choice'; then multipleChoiceTpl else subjectiveTpl;">
+              <div class="row" *ngIf="questionModel.qType">
+                <div *ngIf="questionModel.qType == 'mulitple-choice'; then multipleChoiceTpl else subjectiveTpl;">
                 </div>
               </div>
             </div>
@@ -71,7 +74,8 @@
             <h6 class="card-category text-gray">CEO / Co-Founder</h6>
             <h4 class="card-title">Alec Thompson</h4>
             <p class="card-description">
-              Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye
+              Don't be scared of the truth because we need to restart the human foundation in truth And I love you like
+              Kanye loves Kanye
               I love Rick Owensâ€™ bed design but the back is...
             </p>
             <a href="#pablo" class="btn btn-primary btn-round">Follow</a>
@@ -93,11 +97,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let i of choiceLength; let count = index;">
+          <tr *ngFor="let opt of questionModel.options; let count = index;">
             <td class="text-center">
               <div class="form-check">
                 <label class="form-check-label">
-                  <input class="form-check-input" type="checkbox" value="">
+                  <input class="form-check-input" type="checkbox" value="" [(ngModel)]="opt.isCorrect">
                   <span class="form-check-sign">
                     <span class="check"></span>
                   </span>
@@ -107,7 +111,7 @@
             <td>
               <div class="form-group bmd-form-group">
                 <label class="bmd-label-floating">Option {{count + 1}}</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" name="options" [(ngModel)]="opt.value" />
               </div>
             </td>
           </tr>
@@ -119,8 +123,9 @@
 <ng-template #subjectiveTpl>
   <div class="col-md-12">
     <div class="form-group bmd-form-group">
-      <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
-      <textarea class="form-control" rows="5"></textarea>
+      <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat
+        Lambo.</label>
+      <textarea class="form-control" rows="5" [(ngModel)]="questionModel.subjectiveAnswer"></textarea>
     </div>
   </div>
 </ng-template>

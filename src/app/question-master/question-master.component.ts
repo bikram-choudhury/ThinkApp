@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { QuestionMasterService } from '../services/question-master.service';
 
 @Component({
   selector: 'app-question-master',
@@ -17,7 +18,7 @@ export class QuestionMasterComponent implements OnInit {
     options: this.optionConfigs,
     subjectiveAnswer: ''
   };
-  constructor() { }
+  constructor(private _questionService: QuestionMasterService) { }
 
   ngOnInit() {
     this.createOptionHolder();
@@ -38,6 +39,11 @@ export class QuestionMasterComponent implements OnInit {
       delete question.subjectiveAnswer;
     }
     console.log(question);
+    this._questionService.saveQuestion(question).subscribe(
+      (success) => console.log("success: ", success),
+      (error) => console.error("error: ", error),
+      () => console.log("Finally")
+    )
   }
 
 }

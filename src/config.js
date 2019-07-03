@@ -1,5 +1,5 @@
 export const config = {
     "server": {
-        "url": "http://jsonplaceholder.typicode.com/users"
+        "url": "http://localhost:3000"
     }
 }

@@ -22,7 +22,7 @@ export class TopicService {
                     'Content-Type': 'application/json'
                 })
             }
-            return this._http.post(`${this._apiURL}/topic`, data,options).pipe(
+            return this._http.post(`${this._apiURL}/topics`, data,options).pipe(
                 map((response: {[key: string]: string}) => response.status),
                 catchError(error => of(error))
             )

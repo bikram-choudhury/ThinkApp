@@ -11,6 +11,13 @@ export class TopicService {
     private _apiURL= `${config.server.url}/api`;
     constructor(private _http: HttpClient){}
     
+    fetchTopics(): Observable<any> {
+        return this._http.get(`${this._apiURL}/topics`).pipe(
+            map((response:any[]) => {
+                return response.map(adhoc => ({id: adhoc._id, name: adhoc.name}))
+            })
+        )
+    }
     saveTopic(topic: string): Observable<string> {
         if(topic) {
             const data = {

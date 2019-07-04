@@ -10,7 +10,13 @@ import { TopicService } from '../services/topic.service';
 export class TopicMasterComponent implements OnInit {
   topicName: string;
   constructor(private _topicService: TopicService) { }
-  ngOnInit() {}
+  ngOnInit() {
+    this._topicService.fetchTopics().subscribe(
+      (response) => console.log(response),
+      (error) => console.log(error),
+      () => console.log("Finally block")
+    )
+  }
   addTopic() {
     this._topicService.saveTopic(this.topicName).subscribe(
       (response) => console.log(response),

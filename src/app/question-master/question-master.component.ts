@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { QuestionMasterService } from '../services/question-master.service';
+declare var $:any;
 
 @Component({
   selector: 'app-question-master',
@@ -17,6 +18,28 @@ export class QuestionMasterComponent implements OnInit {
     question: '',
     options: this.optionConfigs,
     subjectiveAnswer: ''
+  };
+  options: Object = {
+    placeholderText: 'Edit Your Content Here!',
+    toolbarButtons: ['undo', 'redo', '|', 'bold', 'italic', 'underline', '|',
+      'align', 'formatOL', 'formatUL', 'outdent', 'indent', '|',
+      'insertLink', 'paragraphFormat', 'html', 'clearFormatting', 'fullscreen'
+    ],
+    toolbarButtonsXS: ['undo', 'redo', '|', 'bold', 'italic', 'underline', '|',
+      'align', 'formatOL', 'formatUL', 'outdent', 'indent', '|',
+      'insertLink', 'clearFormatting'
+    ],
+    toolbarButtonsSM: ['undo', 'redo', '|', 'bold', 'italic', 'underline', '|',
+      'align', 'formatOL', 'formatUL', 'outdent', 'indent', '|',
+      'insertLink', 'clearFormatting'
+    ],
+    toolbarButtonsMD: ['undo', 'redo', '|', 'bold', 'italic', 'underline', '|',
+      'align', 'formatOL', 'formatUL', 'outdent', 'indent', '|',
+      'insertLink', 'paragraphFormat', 'clearFormatting'
+    ],
+
+    heightMin: 200,
+    heightMax: 250
   };
   constructor(private _questionService: QuestionMasterService) { }
 

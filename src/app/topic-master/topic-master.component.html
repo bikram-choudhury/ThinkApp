@@ -24,7 +24,30 @@
             <h4 class="card-title">List Topics</h4>
           </div>
           <div class="card-body">
-            <!-- Create your template here -->
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Topic Name</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let topic of topicList; let count = index">
+                  <td>{{count + 1}}</td>
+                  <td>{{topic.name}}</td>
+                  <td>
+                    <div class="btn-holder">
+                      <button class="btn btn-warning">
+                        <i class="material-icons">edit</i>Edit</button>
+                      <button class="btn btn-danger">
+                        <i class="material-icons">delete_sweep</i>
+                        Delete</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

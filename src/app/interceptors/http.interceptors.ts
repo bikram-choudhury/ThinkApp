@@ -11,10 +11,7 @@ export class HttpInterceptors implements HttpInterceptor {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
                 'Authorization-Code': 'fghjklkjhgfd345oiugvc'
-            }),
-            setParams: {
-                'abc': 'Bikram'
-            }
+            })
         });
         
         return next.handle(request).pipe(

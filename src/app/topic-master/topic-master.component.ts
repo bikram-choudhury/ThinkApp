@@ -31,5 +31,12 @@ export class TopicMasterComponent implements OnInit {
       () => console.log("Finally block")
     )
   }
+  deleteTopic(topic_slug: string) {
+    this._topicService.deleteTopic(topic_slug).subscribe(
+      (response) => {
+        this.topicList = this.topicList.filter(topic => topic.slug != topic_slug)
+      }
+    )
+  }
 
 }

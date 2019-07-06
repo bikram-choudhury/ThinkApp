@@ -5,27 +5,32 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-primary">
-            <button class="btn btn-white pull-right" (click)="createQuestion()" >Create</button>
+            <button class="btn btn-white pull-right" (click)="createQuestion()">Create</button>
             <h4 class="card-title">Create Question</h4>
             <!-- <p class="card-category">Complete your profile</p> -->
           </div>
           <div class="card-body">
-            <div class="col-md-12">
+            <div class="col-md-12" *ngIf="topicList && topicList.length">
               <div class="row">
                 <div class="dropdown">
                   <button class="dropdown-toggle btn btn-primary" data-toggle="dropdown">
-                    {{questionModel.topicName | titlecase}}
+                    {{topicName | titlecase}}
                     <b class="caret"></b>
                   </button>
                   <ul class="dropdown-menu">
                     <li *ngFor="let topic of topicList;">
-                      <a href="javascript:void(0)" (click)="selectTopic(topic)">{{topic}}</a>
+                      <a href="javascript:void(0)" (click)="selectTopic(topic.slug)">{{topic.name}}</a>
                     </li>
                   </ul>
                 </div>
               </div>
               <div class="row">
-                {{questionModel.question}}
+                <div class="col-md-12 mt-3">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Questions Title</label>
+                    <input type="text" class="form-control" name="options" [(ngModel)]="questionModel.questionTitle" autocomplete="off" />
+                  </div>
+                </div>
                 <div class="col-md-12">
                   <div class="form-group">
                     <label class="bmd-label-floating">Questions</label>
@@ -37,8 +42,7 @@
                 <div class="col-md-12">
                   <div class="form-check form-check-radio form-check-inline">
                     <label class="form-check-label">
-                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                        value="mulitple-choice" [(ngModel)]="questionModel.qType"> Multiple Choice
+                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="mulitple-choice" [(ngModel)]="questionModel.qType"> Multiple Choice
                       <span class="circle">
                         <span class="check"></span>
                       </span>
@@ -46,8 +50,7 @@
                   </div>
                   <div class="form-check form-check-radio form-check-inline">
                     <label class="form-check-label">
-                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                        value="subjective" [(ngModel)]="questionModel.qType"> Subjective
+                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="subjective" [(ngModel)]="questionModel.qType"> Subjective
                       <span class="circle">
                         <span class="check"></span>
                       </span>
@@ -104,8 +107,8 @@
 <ng-template #subjectiveTpl>
   <div class="col-md-12">
     <div class="form-group bmd-form-group">
-      <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat
-        Lambo.</label>
+      <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.
+      </label>
       <textarea class="form-control" [froalaEditor]="options" [(froalaModel)]="questionModel.subjectiveAnswer"></textarea>
     </div>
   </div>

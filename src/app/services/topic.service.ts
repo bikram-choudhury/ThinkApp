@@ -15,7 +15,7 @@ export class TopicService {
     fetchTopics(): Observable<TopicModel[]> {
         return this._http.get(`${this._apiURL}/topics`).pipe(
             map((response:{[key: string]: string}[]) => {
-                return response.map(adhoc => ({id: adhoc._id, name: adhoc.name}))
+                return response.map(adhoc => ({slug: adhoc.slug, name: adhoc.name}))
             })
         )
     }
@@ -37,6 +37,14 @@ export class TopicService {
                         name: response.name
                     }
                 }),
+                catchError(error => of(error))
+            )
+        }
+    }
+    deleteTopic(topic_slug: string): Observable<{message: string}> {
+        if(topic_slug) {
+            return this._http.delete(`${this._apiURL}/topics/${topic_slug}`).pipe(
+                map((response: {[key: string]: string}) => ({message: response.message})),
                 catchError(error => of(error))
             )
         }

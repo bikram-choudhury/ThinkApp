@@ -8,7 +8,7 @@ import { map, catchError } from 'rxjs/operators';
     providedIn: 'root'
 })
 export class QuestionMasterService {
-    private _apiUrl = `${config.server.url}`;
+    private _apiUrl = `${config.server.url}/api`;
     constructor(private _http: HttpClient){}
     saveQuestion(question: any):Observable<{status: boolean}> {
         const options = {
@@ -16,7 +16,7 @@ export class QuestionMasterService {
                 'Content-Type': 'application/json'
             })
         } 
-        return this._http.post(this._apiUrl, question, options).pipe(
+        return this._http.post(`${this._apiUrl}/questions/save`, question, options).pipe(
             map((response: {[key:string]: any}) => {
                 if(response.id) {
                     return {status: true};

@@ -1,4 +1,4 @@
 export interface TopicModel {
-    id: string,
+    slug: string,
     name: string 
 }

@@ -3,14 +3,14 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-4">
-        <div class="card card-profile">
+        <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Add Topic</h4>
+            <h4 class="card-title text-center">Add Topic</h4>
             <form #topicForm="ngForm">
               <div class="col-md-12">
                 <div class="form-group bmd-form-group">
                   <label class="bmd-label-floating">Topic Name</label>
-                  <input type="text" class="form-control" [(ngModel)]="topicName" name="topic" />
+                  <input type="text" class="form-control" [(ngModel)]="topicName" name="topic" autocomplete="off" />
                 </div>
               </div>
               <button type="button" class="btn btn-primary btn-round" (click)="addTopic()">Submit</button>
@@ -24,7 +24,7 @@
             <h4 class="card-title">List Topics</h4>
           </div>
           <div class="card-body">
-            <table class="table">
+            <table class="table table-bordered" *ngIf="topicList && topicList.length">
               <thead>
                 <tr>
                   <th>#</th>
@@ -40,7 +40,7 @@
                     <div class="btn-holder">
                       <button class="btn btn-warning">
                         <i class="material-icons">edit</i>Edit</button>
-                      <button class="btn btn-danger">
+                      <button class="btn btn-danger" (click)="deleteTopic(topic.slug)">
                         <i class="material-icons">delete_sweep</i>
                         Delete</button>
                     </div>

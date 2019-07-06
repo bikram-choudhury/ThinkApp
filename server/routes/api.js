@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const async = require('async');
 const UserController = require('./../controller/userController');
 const topics = require('../database/schemas/topic');
+const questions = require('./questions');
 
 router.use((req, res, next) => {
     // console.log(req.url);
     // res.status(500).json({description: "sending from middleware only"});
     next();
-})
+});
+router.use('/questions', questions);
 
 router.post('/user/authenticate', (request, response) => {
     const username = request.body.username,
@@ -37,7 +38,7 @@ router.post('/user/authenticate', (request, response) => {
             }
         })
         .catch(userError => response.json({ error: userError }))
-})
+});
 
 router.post('/user/register', (request, response) => {
     const user = request.body;
@@ -72,19 +73,19 @@ router.route('/topics')
     }, format_service_data)
     .post((req, res, next) => {
         const data = req.body;
-        findCourse(data)
+        findTopic(data)
             .then(isExist => {
                 if (!isExist) {
                     next();
                 } else {
-                    res.status(500).send({ error: 'course name is already present' });
+                    res.status(500).send({ error: 'Topic name is already present' });
                 }
             }).catch(errorResponse => res.status(500).send(errorResponse));
 
     }, (req, res, next) => {
         const data = req.body;
-        const course = new topics(data);
-        course.save((err, doc) => {
+        const topic = new topics(data);
+        topic.save((err, doc) => {
             if (err) {
                 res.status(500).send(err);
             } else {
@@ -94,15 +95,15 @@ router.route('/topics')
         });
     }, format_service_data);
 
-router.route('/topics/:tId')
+router.route('/topics/:tpSlug')
     .delete((req, res, next) => {
-        const topicId = req.params && req.params.tId || '';
+        const tpSlug = req.params && req.params.tpSlug || '';
         let query;
-        if (topicId) {
-            if (topicId !== 'all') {
-                query = { _id: ObjectId(topicId) };
+        if (tpSlug) {
+            if (tpSlug !== 'all') {
+                query = { slug: tpSlug };
             }
-            if (topicId === 'all') {
+            if (tpSlug === 'all') {
                 query = {};
             }
             req.dQry = query;
@@ -112,7 +113,7 @@ router.route('/topics/:tId')
         }
     }, (req, res) => {
         const query = req.dQry || ''
-        query && topics.remove(query, (err, doc) => {
+        query && topics.deleteOne(query, (err, doc) => {
             if (err) {
                 res.status(500).send(err);
             }
@@ -153,7 +154,7 @@ function format_service_data(req, res, next) {
     }
 }
 
-function findCourse(data) {
+function findTopic(data) {
     return new Promise((resolve, reject) => {
         const regex = "^" + data.name + "$";
         topics.findOne({ name: { $regex: regex, $options: "i" } }, null, { lean: true }, (err, course) => {

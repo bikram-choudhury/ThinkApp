@@ -27,4 +27,10 @@ export class QuestionMasterService {
             catchError(error => observableOf(error))
         )
     }
+    fetchQuestions(): Observable<any> {
+        return this._http.get(`${this._apiUrl}/questions/fetch`).pipe(
+            map(response => response),
+            catchError(error => observableOf(error))
+        )
+    }
 }

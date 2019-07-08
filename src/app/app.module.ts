@@ -15,6 +15,8 @@ import { FooterComponent } from './footer/footer.component';
 import { QuestionMasterComponent } from './question-master/question-master.component';
 import { TopicMasterComponent } from './topic-master/topic-master.component';
 import { HttpInterceptors } from './interceptors/http.interceptors';
+import { QuestionViewComponent } from './question-view/question-view.component';
+import { QuestionMasterResolveService } from './resolvers/question-master.resolve.service';
 
 @NgModule({
   imports: [
@@ -34,9 +36,11 @@ import { HttpInterceptors } from './interceptors/http.interceptors';
     HeaderComponent,
     FooterComponent,
     QuestionMasterComponent,
-    TopicMasterComponent
+    TopicMasterComponent,
+    QuestionViewComponent
   ],
   providers: [
+    QuestionMasterResolveService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptors,

@@ -1,0 +1,42 @@
+<app-header [Header]="'View Questions'"></app-header>
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <button class="btn btn-white pull-right" (click)="createQuestion()">Create</button>
+            <h4 class="card-title">View Question</h4>
+            <!-- <p class="card-category">Complete your profile</p> -->
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered" >
+              <thead class=" text-primary">
+                <tr>
+                  <th *ngFor="let head of tableHeaders">{{head}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let question of questionList; let count = index;">
+                  <td>{{count + 1 }}</td>
+                  <td>{{question.topicName}}</td>
+                  <td>{{question.questionType}}</td>
+                  <td>{{question.questionTitle}}</td>
+                  <td>
+                    <button class="btn btn-info">
+                      <i class="material-icons">visibility</i>View</button>
+                    <button class="btn btn-warning">
+                      <i class="material-icons">edit</i>Edit</button>
+                    <button class="btn btn-danger" (click)="deleteQuestion(question.questionSlug)">
+                      <i class="material-icons">delete_sweep</i>
+                      Delete</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

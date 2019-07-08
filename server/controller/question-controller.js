@@ -1,4 +1,5 @@
 const questions = require('../database/schemas/question');
+const topics = require('../database/schemas/topic');
 
 const QuestionController = {
     createQuestion: (question) => {
@@ -21,13 +22,37 @@ const QuestionController = {
     fetchQuestion: (source = null, match = null, fetch = null) => {
         return new Promise((resolve, reject) => {
             const conditions = match || {};
-            questions.find(conditions, fetch, { lean: true }, (err, questions) => {
-                if (err) {
+            topics.aggregate([
+                {
+					"$match": conditions
+				},{
+					"$lookup": {
+						"from": "questions",
+						"localField": "slug",
+						"foreignField": "tpSlug",
+						"as": "questionDetails"
+					}
+				},{
+                    "$unwind": "$questionDetails"
+                },{
+                    "$group": {
+                        "_id": "$_id",
+                        "topicName": { "$first": "$name"},
+                        "questionTitle": { "$first": "$questionDetails.qTitle"},
+                        "questionSlug": { "$first": "$questionDetails.qSlug"},
+                        "questionType": { "$first": "$questionDetails.qType"},
+                        "question": { "$first": "$questionDetails.question"},
+                        "subjectiveAnswer": { "$first": "$questionDetails.subjectiveAnswer"},
+                        "options":  { "$first": "$questionDetails.options"}
+                    }
+                }
+            ], (err, questions) => {
+				if (err) {
                     reject(err);
                 } else {
                     resolve(questions);
                 }
-            });
+			});
         })
     },
     updateQuestion: (match, docForUpdate) => {

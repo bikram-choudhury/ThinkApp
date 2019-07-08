@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { QuestionMasterComponent } from './question-master/question-master.component';
 import { TopicMasterComponent } from './topic-master/topic-master.component';
+import { QuestionViewComponent } from './question-view/question-view.component';
+import { QuestionMasterResolveService } from './resolvers/question-master.resolve.service';
 
 const routes: Routes = [{
   path: '',
@@ -12,8 +14,12 @@ const routes: Routes = [{
   path: 'dashboard',
   component: DashboardComponent
 }, {
-  path: 'questions',
+  path: 'create-question',
   component: QuestionMasterComponent
+}, {
+  path: 'view-questions',
+  component: QuestionViewComponent,
+  resolve: { questionList: QuestionMasterResolveService}
 }, {
   path: 'topics',
   component: TopicMasterComponent

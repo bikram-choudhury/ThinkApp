@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { QuestionMasterService } from '../services/question-master.service';
-import { map } from '../../../node_modules/rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class QuestionMasterResolveService implements Resolve<any> {

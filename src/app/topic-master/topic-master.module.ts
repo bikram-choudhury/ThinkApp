@@ -1,18 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DashboardComponent } from './dashboard.component';
+import { TopicMasterComponent } from './topic-master.component';
 import { SharedModule } from '../shared.module';
 
 const route: Routes = [{
     path: '',
-    component: DashboardComponent
+    component: TopicMasterComponent
 }]
 
 @NgModule({
     imports: [RouterModule.forChild(route), SharedModule],
-    declarations: [DashboardComponent],
-    exports: []
+    declarations: [TopicMasterComponent]
 })
-export class DashboardModule {
+export class TopicMasterModule {
 
 }

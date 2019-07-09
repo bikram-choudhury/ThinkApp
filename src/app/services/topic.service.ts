@@ -4,10 +4,9 @@ import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { config } from '../../config.js';
 import { TopicModel } from '../model/topic.model.js';
+import { TopicMasterModule } from '../topic-master/topic-master.module.js';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class TopicService {
     private _apiURL= `${config.server.url}/api`;
     constructor(private _http: HttpClient){}

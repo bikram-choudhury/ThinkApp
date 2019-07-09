@@ -1,9 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { QuestionMasterComponent } from './question-master/question-master.component';
-import { TopicMasterComponent } from './topic-master/topic-master.component';
-import { QuestionViewComponent } from './question-view/question-view.component';
-import { QuestionMasterResolveService } from './resolvers/question-master.resolve.service';
 
 const routes: Routes = [{
   path: '',
@@ -14,14 +10,13 @@ const routes: Routes = [{
   loadChildren: './dashboard/dashboard.module#DashboardModule'
 }, {
   path: 'create-question',
-  component: QuestionMasterComponent
+  loadChildren: './question-master/question-master.module#QuestionMasterModule'
 }, {
   path: 'view-questions',
-  component: QuestionViewComponent,
-  resolve: { questionList: QuestionMasterResolveService}
+  loadChildren: './question-view/question-view.module#QuestionViewModule'
 }, {
   path: 'topics',
-  component: TopicMasterComponent
+  loadChildren: './topic-master/topic-master.module#TopicMasterModule'
 }]
 
 @NgModule({

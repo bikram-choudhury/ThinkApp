@@ -4,9 +4,7 @@ import { Observable, of as observableOf } from 'rxjs';
 import { config } from '../../config.js';
 import { map, catchError } from 'rxjs/operators';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class QuestionMasterService {
     private _apiUrl = `${config.server.url}/api`;
     constructor(private _http: HttpClient){}

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { QuestionMasterComponent } from './question-master/question-master.component';
 import { TopicMasterComponent } from './topic-master/topic-master.component';
 import { QuestionViewComponent } from './question-view/question-view.component';
@@ -12,7 +11,7 @@ const routes: Routes = [{
   pathMatch: 'full'
 },{
   path: 'dashboard',
-  component: DashboardComponent
+  loadChildren: './dashboard/dashboard.module#DashboardModule'
 }, {
   path: 'create-question',
   component: QuestionMasterComponent

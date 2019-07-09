@@ -6,11 +6,9 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { WrapperComponent } from './wrapper/wrapper.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ContainerComponent } from './container/container.component';
-import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { QuestionMasterComponent } from './question-master/question-master.component';
 import { TopicMasterComponent } from './topic-master/topic-master.component';
@@ -29,11 +27,9 @@ import { QuestionMasterResolveService } from './resolvers/question-master.resolv
   ],
   declarations: [
     AppComponent,
-    DashboardComponent,
     WrapperComponent,
     SidebarComponent,
     ContainerComponent,
-    HeaderComponent,
     FooterComponent,
     QuestionMasterComponent,
     TopicMasterComponent,

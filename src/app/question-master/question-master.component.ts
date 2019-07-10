@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { QuestionMasterService } from '../services/question-master.service';
-import { TopicService } from '../services/topic.service';
 import { TopicModel } from '../model/topic.model';
+import { ActivatedRoute } from '../../../node_modules/@angular/router';
 declare var $:any;
 
 @Component({
@@ -45,12 +45,12 @@ export class QuestionMasterComponent implements OnInit {
     heightMin: 200,
     heightMax: 250
   };
-  constructor(private _questionService: QuestionMasterService, private _topicService: TopicService) { }
+  constructor(private _activatedRoute: ActivatedRoute, private _questionService: QuestionMasterService) { }
 
   ngOnInit() {
-    this._topicService.fetchTopics().subscribe(
-      (topicList => this.topicList = topicList)
-    )
+    this._activatedRoute.data.subscribe(params => {
+      this.topicList = params.topics;
+    });
     this.createOptionHolder();
   }
   selectTopic(tpSlug: string) {
@@ -61,7 +61,7 @@ export class QuestionMasterComponent implements OnInit {
   createOptionHolder() {
     for(let i=0; i<4; i++) {
       this.optionConfigs.push({value: '', isCorrect: false});
-    } 
+    }
   }
   createQuestion() {
     const question = {...this.questionModel};

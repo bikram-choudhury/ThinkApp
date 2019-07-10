@@ -7,3 +7,17 @@ table {
         }
     }
 }
+.modal-content {
+    .content-highlight {
+        border: 1px solid #d3d3d352;
+        padding: 0 5px 0 15px;
+        background-color: #d3d3d352;
+    }
+    .content-label {
+        font-size: 19px;
+        font-weight: 400;
+        margin: 0.7em 0;
+        display: block;
+        letter-spacing: 1px;
+    }
+}

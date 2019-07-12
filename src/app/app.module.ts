@@ -11,6 +11,7 @@ import { ContainerComponent } from './container/container.component';
 import { FooterComponent } from './footer/footer.component';
 import { HttpInterceptors } from './interceptors/http.interceptors';
 import { SignInComponent } from './signin/signin.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { SignInComponent } from './signin/signin.component';
     SidebarComponent,
     ContainerComponent,
     FooterComponent,
-    SignInComponent
+    SignInComponent,
+    SignupComponent
   ],
   providers: [{
       provide: HTTP_INTERCEPTORS,

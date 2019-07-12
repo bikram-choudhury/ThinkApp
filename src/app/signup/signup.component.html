@@ -1,0 +1,63 @@
+<!-- End Navbar -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <form class="form-control" [formGroup]="signupForm" (ngSubmit)="signup()">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-primary">
+                            <button class="btn btn-white pull-right">Sign Up</button>
+                            <h4 class="card-title">Sign Up User</h4>
+                            <p class="card-category">Complete your profile</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12 mt-3">
+                                        <div class="form-group">
+                                            <label class="bmd-label-floating">Name</label>
+                                            <input type="text" class="form-control" name="name" autocomplete="off" formControlName="name" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 mt-3">
+                                        <div class="form-group">
+                                            <label class="bmd-label-floating">Username</label>
+                                            <input type="text" class="form-control" name="username" autocomplete="off" formControlName="username" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 mt-3">
+                                        <div class="form-group">
+                                            <label class="bmd-label-floating">Password</label>
+                                            <input type="password" class="form-control" name="password" autocomplete="off" formControlName="password" />
+                                            <span *ngIf="signupForm.invalid && signupForm.controls.password.errors && signupForm.controls.password.errors.minlength">
+                                                Required length is 5 but given {{signupForm.controls.password.errors.minlength.actualLength}}
+                                            </span>
+                                            <span *ngIf="signupForm.invalid && signupForm.controls.password.errors && signupForm.controls.password.errors.maxlength">
+                                                    Max length is {{signupForm.controls.password.errors.maxlength.requiredLength}} but given {{signupForm.controls.password.errors.maxlength.actualLength}}
+                                                </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 mt-3">
+                                        <div class="form-group">
+                                            <label class="bmd-label-floating">Confirm Password</label>
+                                            <input type="password" class="form-control" name="confirm_password" autocomplete="off" formControlName="confirm_password" />
+                                            <span *ngIf="signupForm.invalid && signupForm.controls.confirm_password.errors && signupForm.controls.confirm_password.errors.notMatching">
+                                                    Password not matching.
+                                                </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

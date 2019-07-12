@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { SignInComponent } from './signin/signin.component';
 
 const routes: Routes = [{
   path: '',
-  redirectTo: 'dashboard',
+  redirectTo: 'sigin',
   pathMatch: 'full'
+},{
+  path: 'sigin',
+  component: SignInComponent
 },{
   path: 'dashboard',
   loadChildren: './dashboard/dashboard.module#DashboardModule'

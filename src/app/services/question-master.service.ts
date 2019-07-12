@@ -31,4 +31,12 @@ export class QuestionMasterService {
             catchError(error => observableOf(error))
         )
     }
+    deleteQuestion(question_slug: string): Observable<{message: string}> {
+        if(question_slug) {
+            return this._http.delete(`${this._apiUrl}/questions/delete/${question_slug}`).pipe(
+                map((response: {[key: string]: string}) => ({message: response.message})),
+                catchError(error => observableOf(error))
+            )
+        }
+    }
 }

@@ -5,7 +5,9 @@ const QuestionController = require('../controller/question-controller');
 router.post('/save', (request, response, next) => {
     const body = request.body || '';
     if (body) {
-        const question_slug = body.questionTitle && body.questionTitle.toLowerCase().replace(/\s+/g, "-");
+        let questionTitle = body.questionTitle && body.questionTitle.toLowerCase() || '';
+        questionTitle = questionTitle.replace(/[^a-zA-Z1-9\s+]/g, "");
+        const question_slug = questionTitle.trim().replace(/\s+/g, "-");
         const data = {
             qTitle: body.questionTitle,
             qSlug: question_slug,
@@ -53,7 +55,7 @@ router.delete('/delete/:qSlug', (request, response, next) => {
         const condition = {
             'qSlug': quetion_slug
         };
-        QuestionController.updateQuestion(condition, body)
+        QuestionController.deleteQuestion(condition)
             .then(questions => response.json({ message: "Questions has deleted successfully" }))
             .catch(errorResponse => response.status(500).json({ errror: errorResponse }))
     } else {

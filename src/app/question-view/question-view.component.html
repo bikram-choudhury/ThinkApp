@@ -54,10 +54,20 @@
               <div class="content-highlight" [innerHTML]="ModelContent.question"></div>
           </div>
         </div>
-        <div class="row mt-2">
+        <div class="row mt-2" *ngIf="ModelContent?.subjectiveAnswer">
           <div class="col-12">
               <span class="content-label text-success">Solution: </span>
               <div class="content-highlight" [innerHTML]="ModelContent.subjectiveAnswer"></div>
+          </div>
+        </div>
+        <div class="row mt-2" *ngIf="ModelContent?.options?.length">
+          <div class="col-12">
+              <span class="content-label text-success">Solution: </span>
+              <div class="content-highlight">
+                <ul type="A">
+                  <li *ngFor="let option of ModelContent.options" [ngClass]="{'text-success': option.isCorrect}">{{option.value}}</li>
+                </ul>
+              </div>
           </div>
         </div>
     </div>

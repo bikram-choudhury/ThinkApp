@@ -7,8 +7,8 @@ const QuestionController = {
             if(question && Object.keys(question)) {
 
                 const Question = new questions(question);
-                Question.save((err, questionDoc) => {
-                    if (err) {
+                Question.save((error, questionDoc) => {
+                    if (error) {
                         reject(error);
                     } else {
                         resolve(true);
@@ -34,16 +34,15 @@ const QuestionController = {
 					}
 				},{
                     "$unwind": "$questionDetails"
-                },{
-                    "$group": {
-                        "_id": "$_id",
-                        "topicName": { "$first": "$name"},
-                        "questionTitle": { "$first": "$questionDetails.qTitle"},
-                        "questionSlug": { "$first": "$questionDetails.qSlug"},
-                        "questionType": { "$first": "$questionDetails.qType"},
-                        "question": { "$first": "$questionDetails.question"},
-                        "subjectiveAnswer": { "$first": "$questionDetails.subjectiveAnswer"},
-                        "options":  { "$first": "$questionDetails.options"}
+                }, {
+                    "$project": {
+                        "topicName": "$name",
+                        "questionTitle": "$questionDetails.qTitle",
+                        "questionSlug": "$questionDetails.qSlug",
+                        "questionType": "$questionDetails.qType",
+                        "question": "$questionDetails.question",
+                        "subjectiveAnswer": "$questionDetails.subjectiveAnswer",
+                        "options": "$questionDetails.options"
                     }
                 }
             ], (err, questions) => {

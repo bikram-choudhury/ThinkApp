@@ -15,16 +15,16 @@ const routes: Routes = [{
   component: SignInComponent
 },{
   path: 'dashboard',
-  loadChildren: './dashboard/dashboard.module#DashboardModule'
+  loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
 }, {
   path: 'create-question',
-  loadChildren: './question-master/question-master.module#QuestionMasterModule'
+  loadChildren: () => import('./question-master/question-master.module').then(m => m.QuestionMasterModule)
 }, {
   path: 'view-questions',
-  loadChildren: './question-view/question-view.module#QuestionViewModule'
+  loadChildren: () => import('./question-view/question-view.module').then(m => m.QuestionViewModule)
 }, {
   path: 'topics',
-  loadChildren: './topic-master/topic-master.module#TopicMasterModule'
+  loadChildren: () => import('./topic-master/topic-master.module').then(m => m.TopicMasterModule)
 }]
 
 @NgModule({

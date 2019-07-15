@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { HttpClientModule } from '@angular/common/http';
 import { TopicService } from './services/topic.service';
@@ -10,6 +10,7 @@ import { TopicService } from './services/topic.service';
     imports: [
         HttpClientModule,
         FormsModule,
+        ReactiveFormsModule,
         CommonModule,
         FroalaEditorModule.forRoot(),
         FroalaViewModule.forRoot()
@@ -20,6 +21,7 @@ import { TopicService } from './services/topic.service';
         HeaderComponent,
         HttpClientModule,
         FormsModule,
+        ReactiveFormsModule,
         CommonModule,
         FroalaEditorModule,
         FroalaViewModule

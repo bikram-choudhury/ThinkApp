@@ -32,7 +32,7 @@ export class TopicService {
             return this._http.post(`${this._apiURL}/topics`, data,options).pipe(
                 map((response: {[key: string]: string}) => {
                     return {
-                        id: response._id,
+                        slug: response.slug,
                         name: response.name
                     }
                 }),

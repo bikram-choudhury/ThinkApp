@@ -1,19 +1,42 @@
-<section class="container">
-    <div class="signin">
-        <form class="form-control" [formGroup]="signinForm" (ngSubmit)="signin()">
-            <div class="form-group">
-                <label for="" class="control-label">Username</label>
-                <input type="text" name="username" formControlName="username" />
-                <span class="text-error" *ngIf="signinForm.invalid && signinForm.controls.username && signinForm.controls.username.errors && signinForm.controls.username.errors.required">Username is required</span>
-            </div>
-            <div class="form-group">
-                <label for="" class="control-label">Password</label>
-                <input type="text" name="password" formControlName="password" />
-            </div>
-            <div class="btn-group">
-                <button class="btn btn-primary">Signin</button>
-                <button class="btn btn-danger" (click)="reset()">Reset</button>
-            </div>
-        </form>
+<app-header [Header]="'User Login'"></app-header>
+<!-- End Navbar -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <form class="form-control" [formGroup]="signinForm" (ngSubmit)="signin()">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-primary">
+                            <button class="btn btn-white pull-right">Sign In</button>
+                            <h4 class="card-title">Sign In User</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12 mt-3">
+                                        <div class="form-group">
+                                            <label class="bmd-label-floating">Username</label>
+                                            <input type="text" class="form-control" name="username" autocomplete="off"
+                                                formControlName="username" />
+                                            <span class="text-error"
+                                                *ngIf="signinForm.invalid && signinForm.controls.username && signinForm.controls.username.errors && signinForm.controls.username.errors.required">Username
+                                                is required</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 mt-3">
+                                        <div class="form-group">
+                                            <label class="bmd-label-floating">Password</label>
+                                            <input type="password" class="form-control" name="password" autocomplete="off" formControlName="password" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-</section>
+</div>

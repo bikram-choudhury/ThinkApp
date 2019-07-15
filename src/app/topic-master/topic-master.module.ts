@@ -6,6 +6,12 @@ import { SharedModule } from '../shared.module';
 const route: Routes = [{
     path: '',
     component: TopicMasterComponent
+}, {
+    path: ':topic_slug',
+    component: TopicMasterComponent,
+    data: {
+        name: 'Besant'
+    }
 }]
 
 @NgModule({

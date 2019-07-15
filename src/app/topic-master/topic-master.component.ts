@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { TopicService } from '../services/topic.service';
 import { TopicModel } from '../model/topic.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-topic-master',
@@ -11,8 +12,17 @@ import { TopicModel } from '../model/topic.model';
 export class TopicMasterComponent implements OnInit {
   topicName: string;
   topicList: TopicModel[];
-  constructor(private _topicService: TopicService) { }
+  constructor(private _topicService: TopicService, private _activatedRoute: ActivatedRoute, private _route: Router) { }
   ngOnInit() {
+    this._activatedRoute.params.subscribe(
+      param => console.log(param)
+    )
+    this._activatedRoute.queryParams.subscribe(
+      param => console.log(param)
+    )
+    this._activatedRoute.data.subscribe(
+      param => console.log(param)
+    )
     this._topicService.fetchTopics().subscribe(
       (response: TopicModel[]) => {
         this.topicList = response;
@@ -37,6 +47,9 @@ export class TopicMasterComponent implements OnInit {
         this.topicList = this.topicList.filter(topic => topic.slug != topic_slug)
       }
     )
+  }
+  editTopic(topic_slug: string) {
+    this._route.navigate(['topics', topic_slug]);
   }
 
 }

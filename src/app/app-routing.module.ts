@@ -7,6 +7,9 @@ const routes: Routes = [{
 },{
   path: 'admin',
   loadChildren: () => import('./wrapper/wrapper.module').then(module => module.WrapperModule)
+},{
+  path: '**',
+  redirectTo: ''
 }]
 
 @NgModule({

@@ -1,0 +1,53 @@
+header {
+    border: 1px solid #e9ecef;
+    background-color: #cccccc17;
+    margin: 1rem 0;
+    border-radius: 3px;
+    padding: 10px 15px;
+    
+    .info {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  
+  main {
+    min-height: 300px;
+    .question-block {
+      border: 1px solid #e9ecef;
+      background-color: #cccccc17;
+      .question {
+        padding: 3rem 1.5rem;
+        .options table tr td {
+          padding: 5px;
+        }
+      }
+    }
+    .pagination {
+      border: 1px solid #e9ecef;
+      padding: 3rem;
+      margin: 1rem 0;
+      .question-no {
+        border: 1px solid;
+        border-color: lightgreen;
+        padding: 0 10px;
+        margin: 0 5px;
+        font-weight: 600;
+        &.active {
+          border-color: #03A9F4;
+          background-color: #03A9F4;
+          color: #FFF;
+        }
+        &.visited{
+          border-color: #4CAF50;
+          background-color: #4CAF50;
+          color: #FFF;
+        }
+        &.not-answered {
+          border-color: #FF8A65;
+          background-color: #FF8A65;
+          color: #FFF;
+        }
+      }
+    }
+  }

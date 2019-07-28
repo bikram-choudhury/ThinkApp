@@ -4,10 +4,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { WrapperComponent } from './wrapper/wrapper.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { ContainerComponent } from './container/container.component';
-import { FooterComponent } from './footer/footer.component';
 import { HttpInterceptors } from './interceptors/http.interceptors';
 
 @NgModule({
@@ -17,10 +13,6 @@ import { HttpInterceptors } from './interceptors/http.interceptors';
   ],
   declarations: [
     AppComponent,
-    WrapperComponent,
-    SidebarComponent,
-    ContainerComponent,
-    FooterComponent
   ],
   providers: [{
       provide: HTTP_INTERCEPTORS,

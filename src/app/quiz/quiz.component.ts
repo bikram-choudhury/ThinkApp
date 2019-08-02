@@ -143,18 +143,18 @@ export class QuizComponent {
   changeActiveQuestion(selectedQuestion: questionModel, selectedIndex: string) {
     this.activeQuestion = selectedQuestion;
     this.activeQuestionNo = selectedIndex;
-    // this.questionList[this.activeQuestionNo].isActive = true;
+    this.questionList[this.activeQuestionNo].isActive = true;
+    this.questionList[selectedIndex].isVisited = true;
 
     this.questionList = this.questionList.map(question => {
-      question.isActive = question.isVisited = question.notAnswered = false;
+      question.isActive = question.notAnswered = false;
       if(this.activeQuestion.slug == question.slug) {
         question.isActive = true;
       }
       const isAnswered = question.options.find(option => option.isSelected == true);
-      if(this.activeQuestion.slug != question.slug && isAnswered) {
-        question.isVisited = true;
+      if(this.activeQuestion.slug != question.slug && question.isVisited && !isAnswered) {
+        question.notAnswered = true;
       }
-      question.notAnswered = question.isVisited && !isAnswered;
       return question;
     })
   }

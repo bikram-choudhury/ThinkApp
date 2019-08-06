@@ -1,11 +1,11 @@
-<section class="container">
+<section class="container" *ngIf="questionList?.length">
     <header>
         <div class="col-lg-12 info">
             <div class="">
                 Topic: Angular
             </div>
             <div class="">
-                Question: 10
+                Question: {{questionList.length}}
             </div>
         </div>
     </header>
@@ -16,10 +16,9 @@
                     <a href="javascript:void(0)" class="">Next >> </a>
                 </div>
                 <div class="col-12 question">
-                  {{activeQuestion.options | json}}
                     <div class="title">
-                        <label>Q 1:</label>
-                        <span>{{activeQuestion.Title}}</span>
+                        <label>Q{{activeQuestionNo + 1}}:</label>
+                        <span>{{'  '+activeQuestion.Title}}</span>
                     </div>
                     <div class="options">
                         <table>

@@ -1,5 +1,6 @@
 import { OnInit, Component } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
     templateUrl: './signup.component.html',
@@ -9,7 +10,7 @@ export class SignupComponent implements OnInit {
     signupForm: FormGroup;
     submitted: boolean = false;
 
-    constructor(private _formBuilder: FormBuilder){}
+    constructor(private _formBuilder: FormBuilder, private _authentication: AuthenticationService){}
     ngOnInit(){
         this.signupForm = this._formBuilder.group({
             name: ['', Validators.required],
@@ -31,6 +32,15 @@ export class SignupComponent implements OnInit {
     }
     handleSubmit() {
         this.submitted = true;
-        console.log(this.signupForm);
+        if(this.signupForm.valid) {
+            const formData = {...this.signupForm.value};
+            delete formData.confirm_password;
+            formData['password'] = btoa(formData['password']);
+            this._authentication.saveUser(formData).subscribe(
+                (userResponse) => console.log(userResponse),
+                (errorResponse) => console.log(errorResponse),
+                () => console.log('Default block')
+            )
+        }
     }
 }

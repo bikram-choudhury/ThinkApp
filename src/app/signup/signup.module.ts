@@ -4,6 +4,8 @@ import { SignupComponent } from './signup.component';
 import { SharedModule } from '../shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthenticationService } from '../services/authentication.service';
+import { HttpClientModule } from '@angular/common/http';
 
 const route: Routes = [{
     path: '',
@@ -11,7 +13,8 @@ const route: Routes = [{
 }]
 
 @NgModule({
-    imports: [ RouterModule.forChild(route), ReactiveFormsModule, CommonModule ],
+    imports: [ RouterModule.forChild(route), ReactiveFormsModule, CommonModule, HttpClientModule ],
+    providers: [ AuthenticationService ],
     declarations: [ SignupComponent ]
 })
 export class SignUpModule {

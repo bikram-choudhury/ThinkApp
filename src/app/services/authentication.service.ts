@@ -25,4 +25,22 @@ export class AuthenticationService {
             )
         }
     }
+
+    loginUser(user: {[key: string]: string}): Observable<any> {
+        if(user) {
+            const URL = `${this._apiUrl}/user/authenticat`;
+            return this._http.post(URL, user).pipe(
+                map(success => success),
+                catchError(error => {
+                    return throwError({
+                        status: error.status,
+                        message: error.message,
+                        statusText: error.statusText
+                    })
+                })
+            );
+        } else {
+            return null;
+        }
+    }
 }

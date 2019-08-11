@@ -8,7 +8,12 @@ router.use('/questions', questions);
 router.post('/user/register', (request, response) => {
     console.log(request.body);
     response.json({...request.body, token: "IamTokenFromServer"});
-})
+});
+
+router.post('/user/authenticate', (request, response) => {
+    console.log(request.body);
+    response.json({...request.body, token: "IamTokenFromServer"});
+});
 
 
 router.route('/topics')

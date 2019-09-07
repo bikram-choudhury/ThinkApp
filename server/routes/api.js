@@ -2,10 +2,12 @@ const express = require('express');
 const router = express.Router();
 const topics = require('../database/schemas/topic');
 const questions = require('./questions');
+const users = require('./users');
 
 router.use('/questions', questions);
+router.use('/user', users);
 
-router.post('/user/register', (request, response) => {
+/* router.get('/user/register', (request, response) => {
     console.log(request.body);
     response.json({...request.body, token: "IamTokenFromServer"});
 });
@@ -14,6 +16,7 @@ router.post('/user/authenticate', (request, response) => {
     console.log(request.body);
     response.json({...request.body, token: "IamTokenFromServer"});
 });
+*/
 
 
 router.route('/topics')

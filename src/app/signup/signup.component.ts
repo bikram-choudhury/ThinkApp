@@ -1,6 +1,7 @@
 import { OnInit, Component } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AuthenticationService } from '../services/authentication.service';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
     templateUrl: './signup.component.html',
@@ -10,7 +11,7 @@ export class SignupComponent implements OnInit {
     signupForm: FormGroup;
     submitted: boolean = false;
 
-    constructor(private _formBuilder: FormBuilder, private _authentication: AuthenticationService){}
+    constructor(private _formBuilder: FormBuilder, private _authentication: AuthenticationService, private _router: Router){}
     ngOnInit(){
         this.signupForm = this._formBuilder.group({
             name: ['', Validators.required],
@@ -37,7 +38,14 @@ export class SignupComponent implements OnInit {
             delete formData.confirm_password;
             formData['password'] = btoa(formData['password']);
             this._authentication.saveUser(formData).subscribe(
-                (userResponse) => console.log(userResponse),
+                (userResponse) => {
+                    const navigationExtras: NavigationExtras = {
+                        state: {
+                            username: formData.username
+                        }
+                    }
+                    this._router.navigate(['/admin/signin'], navigationExtras);
+                },
                 (errorResponse) => console.log(errorResponse),
                 () => console.log('Default block')
             )

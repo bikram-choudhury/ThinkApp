@@ -19,12 +19,12 @@
                                     <div class="form-group">
                                         <label for="Username"><i
                                                 class="zmdi zmdi-account material-icons-name"></i></label>
-                                        <input type="text" name="username" placeholder="Your Username" #username="ngModel" ngModel required />
+                                        <input type="text" name="username" placeholder="Your Username" #username="ngModel" [(ngModel)]="signin.username" required />
                                         <span *ngIf="signInForm.submitted && signInForm.controls.username.errors &&signInForm.controls.username.errors.required">Username is required !</span>
                                     </div>
                                     <div class="form-group">
                                         <label for="Password"><i class="zmdi zmdi-lock"></i></label>
-                                        <input type="password" name="password" placeholder="Password" #password="ngModel" ngModel />
+                                        <input type="password" name="password" placeholder="Password" #password="ngModel" [(ngModel)]="signin.password" />
                                         <span *ngIf="signInForm.submitted && signInForm.controls.password.errors &&signInForm.controls.password.errors.required">Password is required !</span>
                                         
                                     </div>

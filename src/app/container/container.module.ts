@@ -4,10 +4,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { ContainerComponent } from '../container/container.component';
 import { FooterComponent } from '../footer/footer.component';
+import { AuthoriztionService } from '../services/authorization.service';
 
 const routes: Routes = [{
     path: '',
     component: ContainerComponent,
+    canActivateChild: [AuthoriztionService],
     children: [{
         path: '',
         redirectTo: 'dashboard',
@@ -33,6 +35,9 @@ const routes: Routes = [{
         SidebarComponent,
         ContainerComponent,
         FooterComponent
+    ],
+    providers: [
+      AuthoriztionService
     ]
 })
 export class ContainerModule {

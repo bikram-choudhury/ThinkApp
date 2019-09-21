@@ -14,9 +14,7 @@ export class AuthenticationService {
             const URL = `${this._apiUrl}/user/register`;
             const options = {
                 headers: new HttpHeaders({
-                    'Content-Type': 'application/json',
-                    'Authorization-Code': 'Bearer Token',
-                    'Author-Name': 'Arshitha'
+                    'Content-Type': 'application/json'
                 })
             } 
             return this._http.post(URL, user, options).pipe(
@@ -28,7 +26,7 @@ export class AuthenticationService {
 
     loginUser(user: {[key: string]: string}): Observable<any> {
         if(user) {
-            const URL = `${this._apiUrl}/user/authenticat`;
+            const URL = `${this._apiUrl}/user/authenticate`;
             return this._http.post(URL, user).pipe(
                 map(success => success),
                 catchError(error => {

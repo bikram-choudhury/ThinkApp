@@ -1,103 +1,59 @@
 const express = require('express');
 const router = express.Router();
-const dummy = require('./../controller/dummy-controller');
-const async = require('async');
-const fetch = require('node-fetch');
+const UserController = require('./../controller/userController');
+const atob = require("atob");
 
-router.get('/fetch', (request, response) => {
-    response.json({
-        url: request.url,
-        basURL: request.baseUrl,
-        originalURL: request.originalUrl,
-        host: request.hostname,
-        token: dummy.generateRandomString(20),
-        parsedURL: dummy.parseURL(request.url)
-    });
-});
-router.get('/fetch/:userID?', (request, response) => {
-    dummy.fetchFakeUserData(request.params.userID)
-    .then(userdata => response.json(userdata))
-    .catch(error => response.status(500).send(error))
-});
-
-router.get('/fetch/async/:userID?', async (request, response) => {
-    try {
-        const fakeUserData = await dummy.fetchFakeUserData(request.params.userID);
-        response.json(fakeUserData);
-    } catch(error) {
-        response.status(500).send(error.message);
+router.post('/register', (request, response) => {
+    const user = request.body || null;
+    if (Object.keys(user).length && user.username) {
+        const usernameEmailMatch = { $or: [{ username: user.username }, { email: user.email }] };
+        UserController.findUser(null, usernameEmailMatch, { _id: 1 })
+            .then(isExist => {
+                if (!isExist) {
+                    user.password = atob(user.password);
+                    UserController.createUser(user)
+                        .then(createResponse => response.json({ userId: `user saved with ${user.username}.` }))
+                        .catch(errorAtCreate => response.json({ error: errorAtCreate }))
+                } else {
+                    response.json({ error: 'username/email already exist.' });
+                }
+            })
+            .catch(userError => response.json({ error: userError }))
+    } else {
+        response.status(400).send('Invalid user data!');
     }
 });
 
-const fetchUserDataFromFakeServer = (request, response, next) => {
-    const userID = request.params.userID;
-    async.parallel([
-        (callback) => {
-            fetch(`https://jsonplaceholder.typicode.com/users/${userID}`)
-            .then(response => response.json())
-            .then(userData => {
-                callback(null, userData)
+router.post('/authenticate', (request, response) => {
+    const user = request.body || null;
+    if (Object.keys(user).length && user.username) {
+        const username = user.username,
+            password = user.password,
+            usernameEmailMatch = { $or: [{ username: username }, { email: username }] };
+        UserController.findUser(null, usernameEmailMatch)
+            .then(userResponse => {
+                if (userResponse) {
+                    const authInfo = {
+                        _id: userResponse._id,
+                        hash: userResponse.hash,
+                        password: atob(password),
+                    };
+                    UserController.authenticate(authInfo)
+                        .then(authResponse => {
+                            response.json({
+                                name: userResponse.name,
+                                username: userResponse.username,
+                                email: userResponse.email,
+                                token: authResponse.token
+                            })
+                        })
+                        .catch(authError => response.json(authError))
+                } else {
+                    response.json({ error: 'username/email is not available.' });
+                }
             })
-            .catch(error => {
-                callback(error)
-            })
-        },
-        (callback) => {
-            fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userID}`)
-            .then(response => response.json())
-            .then(postData => {
-                callback(null, postData)
-            })
-            .catch(error => {
-                callback(error)
-            })
-        }
-    ], (error, result) => {
-        if(error) {
-            response.status(500).send(error);
-        }
-        request.userData = result;
-        next()
-    })
-};
-
-const formatUserData = (request, response) => {
-    const [UserDetails, UserPosts] = request.userData;
-    const {id, name, email, website} = UserDetails;
-    const user = {id, name, email, website};
-    user.posts = UserPosts.map(post => {
-        delete post.userId;
-        return post;
-    });
-    response.json(user);
-};
-
-const fetchCommentsFromFakeServer = (request, response) => {
-    async.waterfall([
-        callback => {
-            const postID = request.params.postID;
-            callback(null, postID);
-        },
-        (postID, callback) => {
-            fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postID}`)
-            .then(response => response.json())
-            .then(comments => {
-                callback(null, comments)
-            })
-            .catch(error => {
-                callback(error)
-            })
-        }
-    ], (error, result) => {
-        if(error) {
-            response.status(500).send(error);
-        }
-        response.json(result);
-    })
-}
-
-router.get('/fetch/async-package/parallel/:userID', fetchUserDataFromFakeServer, formatUserData)
-
-router.get('/fetch/async-package/waterfall/:postID', fetchCommentsFromFakeServer)
+            .catch(userError => response.json({ error: userError }))
+    }
+})
 
 module.exports = router;

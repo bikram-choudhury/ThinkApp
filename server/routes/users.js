@@ -6,7 +6,7 @@ const atob = require("atob");
 router.post('/register', (request, response) => {
     const user = request.body || null;
     if (Object.keys(user).length && user.username) {
-        const usernameEmailMatch = { $or: [{ username: user.username }, { email: user.email }] };
+        const usernameEmailMatch = { $or: [{ username: user.username }, { email: user.username }] };
         UserController.findUser(null, usernameEmailMatch, { _id: 1 })
             .then(isExist => {
                 if (!isExist) {

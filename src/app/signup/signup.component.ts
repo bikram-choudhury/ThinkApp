@@ -39,12 +39,16 @@ export class SignupComponent implements OnInit {
             formData['password'] = btoa(formData['password']);
             this._authentication.saveUser(formData).subscribe(
                 (userResponse) => {
-                    const navigationExtras: NavigationExtras = {
-                        state: {
-                            username: formData.username
+                    if(userResponse && !userResponse.error) {
+                        const navigationExtras: NavigationExtras = {
+                            state: {
+                                username: formData.username
+                            }
                         }
+                        this._router.navigate(['/admin/signin'], navigationExtras);
+                    } else {
+                        console.log(userResponse.error);
                     }
-                    this._router.navigate(['/admin/signin'], navigationExtras);
                 },
                 (errorResponse) => console.log(errorResponse),
                 () => console.log('Default block')
